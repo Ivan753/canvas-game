@@ -1,0 +1,80 @@
+body{
+	margin: 0;
+	padding: 0;
+	}
+	
+	#all{
+	width:100%;
+	height:100%;
+	}
+	
+	#top_block{
+	position:relative;
+	width:100%;
+	height:500px;
+	}
+	
+	#left_menu{
+	float:left;
+	height:500px;
+	width:150px;
+	}
+	
+	#example{
+	float:left;
+	}
+	
+	#bottom_block{
+	width:1150px;
+	height:100px;
+	border:1px solid #000;
+	}
+	
+	#bottom_menu{
+	width:100%;
+	height:150px;
+	}
+	
+	#map_block{
+	width:150px;
+	height:150px;
+	border-bottom:1px solid #000;
+	}
+	
+	#health_block{
+	width:150px;
+	height:30px;
+	border-bottom:1px solid #000;
+	}
+	
+	#mana_block{
+	width:150px;
+	height:30px;
+	border-bottom:1px solid #000;
+	}
+	
+	#zakl_block{
+	width:150px;
+	min-height:30px;
+	border-bottom:1px solid #000;
+	}
+	
+	#animals_block{
+	width:150px;
+	min-height:30px;
+	border-bottom:1px solid #000;
+	}
+	
+	#prizv_block{
+	width:150px;
+	height:30px;
+	border-bottom:1px solid #000;
+	}
+	
+	.items_map{
+	float:left;
+	width:9px;
+	height:9px;
+	font-size:5px
+	text-align:center;
+	}
