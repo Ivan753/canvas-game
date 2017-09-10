@@ -1,0 +1,209 @@
+<script>
+/*
+0) Большая снаряженная масса
+1) Большая мощность двигателя
+2) Большая пассажировместимость
+3) Большая грузоподъёмность
+*/
+//weights=[0.1, 0.1, 0.45, 0.6, 0.1, 0.15, 0.1, 0.32, 0.16, 0.12, 0.1, 0.45, 0.1, 0.32, 0.16];
+weights=[0.11,0.22,0.13,0.16,0.11,0.1,0.17,0.1,0.21,0.1,0.21,0.1]
+enters=[74, 1050, 1, 90];
+v=[];
+error=[];
+for(i=0; i<4; i++) v[i]=0;
+error[0]=0;
+
+d=[];
+weights_lost=[];
+g=[];
+
+for(i=0; i<12; i++){
+d[i]=0;
+weights_lost[i]=0;
+g[i]=0;
+}
+
+
+
+
+for(i=0; i<4; i++){
+
+switch (i) {
+case 0: 
+if (enters[i]<=0.5) { enters[i]=0 }
+if (enters[i]>0.5 && enters[i]<=1) { enters[i]=0.25 }
+if (enters[i]>1 && enters[i]<=2) { enters[i]=0.5 }
+if (enters[i]>2 && enters[i]<=5) { enters[i]=0.75 }
+if (enters[i]>5) { enters[i]=1 }
+break;
+case 1: 
+if (enters[i]<=20) { enters[i]=0 }
+if (enters[i]>20 && enters[i]<=50) { enters[i]=0.25 }
+if (enters[i]>50 && enters[i]<=100) { enters[i]=0.5 }
+if (enters[i]>100 && enters[i]<=200) { enters[i]=0.75 }
+if (enters[i]>200) { enters[i]=1 }
+break;
+case 2: 
+if (enters[i]<=2) { enters[i]=0 }
+if (enters[i]>2 && enters[i]<=5) { enters[i]=0.25 }
+if (enters[i]>5 && enters[i]<=10) { enters[i]=0.5 }
+if (enters[i]>10 && enters[i]<=20) { enters[i]=0.75 }
+if (enters[i]>20) { enters[i]=1 }
+break;
+case 3: 
+if (enters[i]<=1) { enters[i]=0 }
+if (enters[i]>1 && enters[i]<=2) { enters[i]=0.25 }
+if (enters[i]>2 && enters[i]<=3) { enters[i]=0.5 }
+if (enters[i]>3 && enters[i]<=4) { enters[i]=0.75 }
+if (enters[i]>4) { enters[i]=1 }
+break;
+}
+}
+
+
+
+function summ(){
+out=0;
+
+k=0;
+
+j=0;
+
+
+for(i=0; i<3; i++){
+
+j=i;
+
+	for(k=0; k<4; k++){
+	if (j==6) continue;
+	if (j==7) continue;
+	v[i] = v[i]+enters[k]*weights[j];
+	j+=3;
+	//alert(weights[j]+'*'+enters[k]+'='+v[i]);
+	}
+//alert(v[i]);
+}
+error[0] = ((0-v[0])*(0-v[0])+(0-v[1])*(0-v[1])+(100-v[2])*(100-v[2]))/3;
+
+}
+
+
+
+
+
+function wr(){
+document.write("L "+v[0]+"<br>");
+document.write("P "+v[1]+"<br>");
+document.write("G "+v[2]+"<br>");
+document.write("Error "+error[0]+"<br>");
+document.write("Weights "+weights+"<br>");
+}
+
+
+
+
+function train(){
+
+
+
+//for (i=0; i<12; i++) weights_lost[i]=0;
+
+for(i=0; i<3; i++){
+d[i]=(1 - v[i])*((1 - v[i])*v[i]) 
+}
+
+
+/*
+w1 = 0.45, Δw1(i-1) = 0
+w2 = 0.78, Δw2(i-1) = 0
+w3 = -0.12, Δw3(i-1) = 0
+w4 = 0.13, Δw4(i-1) = 0
+δH1 = 0.053
+δH2 = -0.07
+*/
+e=0.7;
+a=0.3;
+
+
+
+for(i=0; i<3; i++){
+
+j=i;
+
+	for(k=0; k<4; k++){
+	/*v[i]+=enters[i]*weights[j];*/
+	g[j]=enters[i]*d[i];
+	weights_lost[j] = e*g[j]+weights_lost[j]*a;
+	weights[j] += weights_lost[j];
+	j+=3;
+	//alert(enters[i]);
+	}
+	
+}
+
+}
+/*
+for(j=0; j<12; j++){
+
+d[j]=enters[j]+
+GRADw1 = 1 * 0.053 = 0.053
+GRADw2 = 1 * -0.07 = -0.07
+GRADw3 = 0 * 0.053 = 0
+GRADw4 = 0 * -0.07 = 0
+
+Δw1 = 0.7 * 0.053 + 0 * 0.3 = 0.04
+Δw2 = 0.7 * -0.07 + 0 * 0.3 = -0.05
+Δw3 = 0.7 * 0 + 0 * 0.3 = 0
+Δw4 = 0.7 * 0 + 0 * 0.3 = 0
+
+w1 = w1 + Δw1 = 0.5
+w2 = w2 + Δw2 = 0.73
+w3 = w3 + Δw3 = -0.12
+w4 = w4 + Δw4 = 0.13
+
+}
+*//*
+gerr=0;
+it=0;
+
+do{
+
+gerr=0;
+it++;
+
+summ();
+
+error= 1- out;
+gerr=Math.abs(error);
+
+for (j=0; j<2; j++){
+weights[j]+=0.1*error*enters[j];
+}
+}while(gerr!=0);
+document.write(weights[0]+' // ' + weights[1]);
+}
+*/
+
+//https://habrahabr.ru/post/143129/
+
+summ();
+wr();
+train();
+summ();
+wr();
+train();
+summ();
+wr();
+train();
+summ();
+wr();
+train();
+summ();
+wr();
+train();
+summ();
+wr();
+train();
+summ();
+wr();
+</script>
