@@ -394,7 +394,7 @@ moveRect_player();
 //-------------------------------------
 
 
-
+//-------Move player's object
 function moveRect_player(){
 
 if(player.action!='nothing'){
@@ -442,7 +442,6 @@ function moveRect(e){
     switch(e.keyCode){
          
         case 65:  // если нажата клавиша влево
-                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -450,14 +449,10 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				//if(access_step == true){
-				//x0+=player.speed;
-				//}
 				player.way = 'left';
 				
             break;
         case 87:   // если нажата клавиша вверх
-                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -465,14 +460,10 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				//if(access_step == true){
-				//y0+=player.speed;
-				//}
 				player.way = 'top';
 				
             break;
         case 68:   // если нажата клавиша вправо
-                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -480,14 +471,10 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				//if(access_step == true){
-				//x0-=player.speed;
-				//}
 				player.way = 'right';
 				
             break;
         case 83:   // если нажата клавиша вниз
-                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -495,9 +482,6 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				//if(access_step == true){
-				//y0-=player.speed;
-				//}
 				player.way = 'bottom';
 				
             break;
