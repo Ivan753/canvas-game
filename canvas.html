@@ -389,8 +389,42 @@ drow_horses();
 drow_player();
 kid++;
 drow_mini_player();
+moveRect_player();
 }
 //-------------------------------------
+
+
+
+function moveRect_player(){
+
+if(player.action!='nothing'){
+step();
+
+if(access_step == true){
+
+switch(player.way){
+	case 'left':
+		x0+=player.speed;
+	break;
+
+	case 'right':
+		x0-=player.speed;
+	break;
+
+	case 'top':
+		y0+=player.speed;
+	break;
+
+	case 'bottom':
+		y0-=player.speed;
+	break;
+}
+
+}
+
+}
+
+}
 
 
 //----------Собития по нажатии на клавишы
@@ -408,7 +442,7 @@ function moveRect(e){
     switch(e.keyCode){
          
         case 65:  // если нажата клавиша влево
-                step();
+                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -416,14 +450,14 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				if(access_step == true){
-				x0+=player.speed;
-				}
+				//if(access_step == true){
+				//x0+=player.speed;
+				//}
 				player.way = 'left';
 				
             break;
         case 87:   // если нажата клавиша вверх
-                step();
+                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -431,14 +465,14 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				if(access_step == true){
-				y0+=player.speed;
-				}
+				//if(access_step == true){
+				//y0+=player.speed;
+				//}
 				player.way = 'top';
 				
             break;
         case 68:   // если нажата клавиша вправо
-                step();
+                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -446,14 +480,14 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				if(access_step == true){
-				x0-=player.speed;
-				}
+				//if(access_step == true){
+				//x0-=player.speed;
+				//}
 				player.way = 'right';
 				
             break;
         case 83:   // если нажата клавиша вниз
-                step();
+                //step();
 				if(e.shiftKey){
 				player.action = 'walking';
 				player.speed = Math.round(block_s/10/3);
@@ -461,9 +495,9 @@ function moveRect(e){
 				player.action = 'run';
 				player.speed = block_s/10;
 				}
-				if(access_step == true){
-				y0-=player.speed;
-				}
+				//if(access_step == true){
+				//y0-=player.speed;
+				//}
 				player.way = 'bottom';
 				
             break;
