@@ -56,6 +56,105 @@
 var example = document.getElementById("example"),
 ctx         = example.getContext('2d');
 map_ctx     = document.getElementById("map_block").getContext('2d');
+
+/*
+function action_ogrs(){
+
+for(p = 1; p  < enemies.length; p++){
+
+
+xr = enemies[p].x*block_s - x_o + x0;
+yr = enemies[p].y*block_s - y_o + y0;
+
+r = sqrt(xr*xr + yr*yr);
+
+
+//Проверяем, где, относительно огра, находится игрок
+if(r < 200){
+	ip = 0;
+	jp = 0;
+	
+	if(xr > 0){
+	
+		if(map[enemies[p].x - 1] != ('t' || 'h')){
+		jp = -1;
+		}
+		
+	}else{
+	jp = 1;
+	}
+	
+	if(yr > 0){ 
+	ip = -1;
+	}else{
+	ip = 1;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(enemies[p].id_action == 12) {
+	enemies[p].id_action = 0;
+	enemies[p].delay = Math.round(Math.random()*10);
+}
+
+
+
+switch(enemies[p].way){
+	case 'top': way = 0; break;
+	case 'top_right': way = 1; break;
+	case 'right': way = 2; break;
+	case 'bottom_right': way = 3; break;
+	case 'bottom': way = 4; break;
+	case 'bottom_left': way = 5; break;
+	case 'left': way = 6; break;
+	case 'top_left': way = 7; break;
+}
+
+ctx.drawImage(ogr_nothing_image, enemies[p].id_action*268, way*250+1, 249, 249, enemies[p].x*block_s+x0+x_o-50, enemies[p].y*block_s+y0+y_o-80, block_s+100, block_s+100);
+
+enemies[p].kidd++;
+
+
+
+if(enemies[p].kidd == 4){
+
+//alert(enemies[p].id_action+' '+enemies[p].id_action*283);
+
+enemies[p].kidd = 0;
+if(enemies[p].delay <= 0){
+enemies[p].id_action++;
+}else{
+enemies[p].delay--;
+}
+}
+
+
+
+}
+
+}
+*/
 </script>
 <script src="js/script.js"></script>
 </body>

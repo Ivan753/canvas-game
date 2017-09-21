@@ -360,13 +360,13 @@ switch(enemies[p].way){
 	case 'top_left': way = 7; break;
 }
 
-ctx.drawImage(ogr_nothing_image, enemies[p].id_action*268, way*250+1, 249, 249, enemies[p].x*block_s+x0+x_o-50, enemies[p].y*block_s+y0+y_o-50, block_s+100, block_s+100);
+ctx.drawImage(ogr_nothing_image, enemies[p].id_action*268, way*250+1, 249, 249, enemies[p].x*block_s+x0+x_o-50, enemies[p].y*block_s+y0+y_o-80, block_s+100, block_s+100);
 
 enemies[p].kidd++;
 
 
 
-if(enemies[p].kidd == 5){
+if(enemies[p].kidd == 4){
 
 //alert(enemies[p].id_action+' '+enemies[p].id_action*283);
 
