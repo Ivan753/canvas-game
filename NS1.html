@@ -45,10 +45,10 @@ for(i=0;i<3;i++) res[i]=0;
 enters2 = [3.695, 136, 3, 3];
 
 var values = [
-	[0.645, 33, 4, 0.34, 1],
-	[2.880, 152, 14, 1.5, 0],
-	[10.400, 260, 3, 6, 1],
-	[9.895, 122, 30, 6.2, 0]
+	[0, 0, 0, 0, 1],
+	[1, 0, 1, 0, 1],
+	[1, 1, 1, 0, 0],
+	[1, 0, 1, 1, 0]
 ];
 
 x = 0;
@@ -64,8 +64,9 @@ var i,j;
 
 x = 0;
 
-for(i=0; i<4; i++){
+//for(i=0; i<4; i++){
 //alert(i);
+/*
 switch (i) {
 case 0: 
 if (enters1[i]<=0.5) { enters[i]=0 }
@@ -98,7 +99,7 @@ break;
 }
 }
 
-
+*/
 
 
 for(i=0; i<3; i++){ res[i] = 0; }
@@ -109,7 +110,7 @@ for(i = 0; i < 3; i++){
 
 	for(j = 0; j < 4; j++){
 		
-		res[i] += weights_out_1[i][j] * enters[j]; 
+		res[i] += weights_out_1[i][j] * enters1[j]; 
 	
 	}
 
@@ -142,10 +143,10 @@ console.log(sigmoid(x));
 //doit(values[1]);
 
 //teaching
-function train(u){
+function train(){
 
 epoh = 100;
-learn_rate = 0.1;
+learn_rate = 0.07;
 error = 0;
 errors = [];
 weights_delta = [];
@@ -155,7 +156,7 @@ for(p = 0; p < epoh; p++){
 
 progress = (p / epoh)*100;
 
-	//for(u = 0; u < 4; u++){
+	for(u = 0; u < 4; u++){
 	
 	console.log(values[u]+' '+x);
 	doit(values[u]);
@@ -182,7 +183,7 @@ progress = (p / epoh)*100;
 
 	document.getElementById("results").innerHTML = 'Progress: '+progress+'%<br>Error: '+error;
 
-	//}
+	}
 }
 document.getElementById("results").innerHTML += '<br>'+sigmoid(x)+'<br>'+weights_out_1+'<br>'+weights_out_2+'<br>'+values;
 }
