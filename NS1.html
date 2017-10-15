@@ -46,9 +46,21 @@ enters2 = [3.695, 136, 3, 3];
 
 var values = [
 	[0, 0, 0, 0, 1],
+	[0, 0, 0, 1, 1],
+	[0, 0, 1, 0, 1],
+	[0, 0, 1, 1, 1],
+	[0, 1, 0, 0, 1],
+	[0, 1, 0, 1, 0],
+	[0, 1, 1, 0, 1],
+	[0, 1, 1, 1, 0],
+	[1, 0, 0, 0, 0],
+	[1, 0, 0, 1, 0],
 	[1, 0, 1, 0, 1],
+	[1, 0, 1, 1, 0],
+	[1, 1, 0, 0, 0],
+	[1, 1, 0, 1, 0],
 	[1, 1, 1, 0, 0],
-	[1, 0, 1, 1, 0]
+	[1, 1, 1, 1, 0]
 ];
 
 x = 0;
@@ -143,21 +155,23 @@ console.log(sigmoid(x));
 //doit(values[1]);
 
 //teaching
+
+p = 0;
+epoh = 7500;
 function train(){
 
-epoh = 100;
-learn_rate = 0.07;
+learn_rate = 1;
 error = 0;
 errors = [];
 weights_delta = [];
 weights_delta_2 = [];
 
-for(p = 0; p < epoh; p++){
+//for(p = 0; p < epoh; p++){
 
-progress = (p / epoh)*100;
+progress = Math.round((p / epoh)*100);
 
-	for(u = 0; u < 4; u++){
-	
+	//for(u = 0; u < 4; u++){
+	u = Math.round(Math.random()*15);
 	console.log(values[u]+' '+x);
 	doit(values[u]);
 	
@@ -182,13 +196,25 @@ progress = (p / epoh)*100;
 	}
 
 	document.getElementById("results").innerHTML = 'Progress: '+progress+'%<br>Error: '+error;
+//реорганизовать цикл
+	//}
+//}
+p++;
+if(p == epoh){
 
-	}
-}
+clearInterval(timerId);
+alert("Stop");
 document.getElementById("results").innerHTML += '<br>'+sigmoid(x)+'<br>'+weights_out_1+'<br>'+weights_out_2+'<br>'+values;
+
+}
 }
 
+function go(){
+p = 0;
+timerId = setInterval(train, 20);
+}
 
-
-
+function stop(){
+clearInterval(timerId);
+}
 </script>

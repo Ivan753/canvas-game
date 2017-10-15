@@ -46,9 +46,14 @@ enters2 = [3.695, 136, 3, 3];
 
 var values = [
 	[0.645, 33, 4, 0.34, 1],
-	[2.880, 152, 14, 1.5, 0],
-	[10.400, 260, 3, 6, 1],
-	[9.895, 122, 30, 6.2, 0]
+	[1.110, 88, 5, 0.485, 1],//l
+	[2.880, 152, 14, 1.5, 0.5],//p
+	[2.880, 152, 3, 1.5, 0],//g
+	[10.400, 260, 3, 6, 0],
+	[9.895, 122, 30, 6.2, 0.5],
+	[3.695, 136, 3, 3, 0],
+	[2.170, 116, 5, 0.6, 1],
+	[27.895, 278, 150, 11, 0.5]
 ];
 
 x = 0;
@@ -142,10 +147,10 @@ console.log(sigmoid(x));
 //doit(values[1]);
 
 //teaching
-function train(u){
+function train(){
 
-epoh = 100;
-learn_rate = 0.1;
+epoh = 5000;
+learn_rate = 0.07;
 error = 0;
 errors = [];
 weights_delta = [];
@@ -156,8 +161,9 @@ for(p = 0; p < epoh; p++){
 progress = (p / epoh)*100;
 
 	//for(u = 0; u < 4; u++){
+	u = Math.round(Math.random()*8);
+	console.log(values[u]+' '+sigmoid(x)+' '+u);
 	
-	console.log(values[u]+' '+x);
 	doit(values[u]);
 	
 	error = sigmoid(x) - values[u][4];

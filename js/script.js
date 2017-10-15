@@ -29,9 +29,40 @@ id_action: 0
 
 //Лошадки
 horses = [];
+//constructor
+function Horse(id_horse, wway, aaction, ch2, i, j){
+
+this.id = id_horse,
+this.name = 'Horse',
+this.state = 'live',
+this.way = wway,
+this.repeat_way = wway,
+this.repeat_way_id = 1,
+this.action = aaction,
+this.id_action = ch2,
+this.kidd = 0,
+this.delay = 12,
+this.x = i,
+this.y = j
+	
+}
 
 //Враги
 enemies = [];
+function Enemy(id_enemy, i, j){
+
+this.id = id_enemy,
+this.name = 'Ogr',
+this.state = 'live',
+this.way = 'top',
+this.action = 'nothing',
+this.id_action = 0,
+this.kidd = 0,
+this.delay = 5,
+this.x = i,
+this.y = j
+
+}
 
 
 //Текстуры игрока----------------------------!Important
@@ -86,8 +117,8 @@ h.src = 'textures/horse_mini_map1.png';
 
 
 //Земля и деревья для большой карты
-var ground = new Image();
-var trees = new Image();
+ground = new Image();
+trees = new Image();
 ground.src = 'textures/ground.jpg';
 trees.src = 'textures/drees.png';
 
@@ -99,9 +130,14 @@ trees.src = 'textures/drees.png';
 
 function create_obj(){
 
-id_trees = 0;
-id_horse = 0;
-id_enemy = 0;
+let id_trees = 0;
+let id_horse = 0;
+let id_enemy = 0;
+
+let wway = '';
+let ch1, ch2, ch3;
+
+let i,j;
 
 for (i=0; i<length_map; i++){
 	for (j=0; j<length_map; j++){
@@ -145,20 +181,8 @@ for (i=0; i<length_map; i++){
 	
 	id_horse++;
 	
-	horses[id_horse] = {
-	id: id_horse,
-	name: 'Horse',
-	state: 'live',
-	way: wway,
-	repeat_way: wway,
-	repeat_way_id:1,
-	action: aaction,
-	id_action: ch2,
-	kidd: 0,
-	delay: 12,
-	x: i,
-	y: j
-	}
+	horses[id_horse] = new Horse(id_horse, wway, aaction, ch2, i, j);
+	
 	}
 	
 	
@@ -166,18 +190,8 @@ for (i=0; i<length_map; i++){
 	
 	id_enemy++;
 	
-	enemies[id_enemy] = {
-	id: id_enemy,
-	name: 'Ogr',
-	state: 'live',
-	way: 'top',
-	action: 'nothing',
-	id_action: 0,
-	kidd: 0,
-	delay: 5,
-	x: i,
-	y: j
-	}
+	enemies[id_enemy] = new Enemy(id_enemy, i, j);
+	
 	}
 	
 }
@@ -193,11 +207,11 @@ for (i=0; i<length_map; i++){
 function drow_mini_player(){
 
 //координаты mini player'a
-xp = Math.round(135 - x0/5);
-yp = Math.round(70 - y0/10);
+let xp = Math.round(135 - x0/5);
+let yp = Math.round(70 - y0/10);
 
-xz = xp;
-yz = yp;
+let xz = xp;
+let yz = yp;
 
 //---------------------------------------------------- отрисовка мини-карты
 
@@ -206,8 +220,8 @@ map_ctx.strokeStyle = '#142';
 map_ctx.fillRect(0, 0, 300, 150);
 
 //отрисовываем mini карту
-for (q = 0; q<15; q++){
-	for (w = 0; w<15; w++){
+for (var q = 0; q<15; q++){
+	for (var w = 0; w<15; w++){
 		if(map[w][q] == 't'){
 		map_ctx.drawImage(mini_map_k, q*20, w*10, 20, 10);
 		}
@@ -237,7 +251,9 @@ var horse_image = new Image();
 
 function drow_horses(){
 
-for(p = 1; p  < horses.length; p++){
+let ch1, ch2, ch3;
+
+for(var p = 1; p  < horses.length; p++){
 
 if ((horses[p].x * block_s+x0+x_o-5 <= 0 - block_s)||(horses[p].x * block_s+x0+x_o-5 > 1000)||(horses[p].y * block_s+y0+y_o-5 < 0 - block_s)||(horses[p].y * block_s+y0+y_o-5 > 500)){
 //ничего
@@ -331,15 +347,16 @@ ctx.drawImage(horse_image, horses[p].x*block_s+x0+x_o-5, horses[p].y*block_s+y0+
 }
 
 //-------------------------------------------------
-var ogr_attak_image = new Image();
-var ogr_nothing_image = new Image();
+ogr_attak_image = new Image();
+ogr_nothing_image = new Image();
+
 ogr_attak_image.src = 'textures/enemy/ogr/attak.png';
 ogr_nothing_image.src = 'textures/enemy/ogr/nothing.png';
 //Отрисовка врагов-------------------
 
 function drow_ogrs(){
 
-for(p = 1; p  < enemies.length; p++){
+for(var p = 1; p  < enemies.length; p++){
 
 
 if(enemies[p].id_action == 12) {
@@ -424,8 +441,8 @@ ctx.fillStyle = '#000000';
 ctx.strokeStyle = '#000000';
 ctx.fillRect(0, 0, 1000, 500);
 
-for (i=0; i<length_map; i++){
-	for (j=0; j<length_map; j++){
+for (var i=0; i<length_map; i++){
+	for (var j=0; j<length_map; j++){
 	
 	if ((i*block_s+x0+x_o < 0 - block_s)||(i*block_s+x0+x_o > 1000)||(j*block_s+y0+y_o < 0 - block_s)||(j*block_s+y0+y_o>500)){
 	continue;
@@ -554,8 +571,8 @@ function moveRect(e){
 function step(){
 
 //настроим чувствительность
-ux = 0;
-uy = 0;
+let ux = 0;
+let uy = 0;
 switch(player.way){
 	case 'right': ux = -0.85; break;
 	case 'left': ux = 1; break;
@@ -564,8 +581,8 @@ switch(player.way){
 	default: break;
 }
 //-------индексы ячеек
-xp = Math.round((-x0 + (length_map/2 - 0.5)*block_s)/block_s + ux);
-yp = Math.round((-y0 + (length_map/2 - 0.5)*block_s)/block_s + uy);
+let xp = Math.round((-x0 + (length_map/2 - 0.5)*block_s)/block_s + ux);
+let yp = Math.round((-y0 + (length_map/2 - 0.5)*block_s)/block_s + uy);
 
 access_step = true;
 
