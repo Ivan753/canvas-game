@@ -3,8 +3,8 @@
 width_win = example.width;
 height_win = example.height;
 //Определяем отступы для поля
-x_o = width_win/2 - block_s*length_map/2;
-y_o = height_win/2 - block_s*length_map/2;
+const x_o = width_win/2 - block_s*length_map/2;
+const y_o = height_win/2 - block_s*length_map/2;
 
 
 access_step = false;
@@ -29,26 +29,31 @@ id_action: 0
 
 //Лошадки
 horses = [];
-//constructor
-function Horse(id_horse, wway, aaction, ch2, i, j){
+//CLASS
+class Horse{
 
-this.id = id_horse,
-this.name = 'Horse',
-this.state = 'live',
-this.way = wway,
-this.repeat_way = wway,
-this.repeat_way_id = 1,
-this.action = aaction,
-this.id_action = ch2,
-this.kidd = 0,
-this.delay = 12,
-this.x = i,
-this.y = j
+constructor(id_horse, wway, aaction, ch2, i, j){
+
+	this.id = id_horse,
+	this.name = 'Horse',
+	this.state = 'live',
+	this.way = wway,
+	this.repeat_way = wway,
+	this.repeat_way_id = 1,
+	this.action = aaction,
+	this.id_action = ch2,
+	this.kidd = 0,
+	this.delay = 12,
+	this.x = i,
+	this.y = j
 	
+}
+
 }
 
 //Враги
 enemies = [];
+//CONSTRUCTOR
 function Enemy(id_enemy, i, j){
 
 this.id = id_enemy,
@@ -102,6 +107,75 @@ for(i=0; i<4; i++){
 }
 //------------------------------------------
 */
+//-------------
+function action_ogrs(){
+	var ip = 0;
+	var jp = 0;
+	var r = 0;
+	var xr,yr;
+	
+for(p = 1; p  < enemies.length; p++){
+
+ip = 0;
+jp = 0;
+r = 0;
+
+xr = enemies[p].x*block_s - 50 - width_win/2 + x0 ;
+yr = enemies[p].y*block_s + y_o - y0;
+
+r = Math.sqrt(xr*xr + yr*yr);
+//var r = xr +' ' + yr;
+
+
+
+
+//Проверяем, где, относительно огра, находится игрок------
+if(r < 300){
+
+	
+	if(xr > block_s){
+	
+		if(map[enemies[p].x - 1] != ('t' || 'h')){
+		jp = -1;
+		}
+		
+	}
+	
+	if(xr < -block_s){
+	
+		if(map[enemies[p].x + 1] != ('t' || 'h')){
+		jp = +1;
+		}
+		
+	}
+	
+	if(yr > block_s){
+	
+		if(map[enemies[p].y - 1] != ('t' || 'h')){
+		ip = -1;
+		}
+		
+	}
+	
+	if(yr < -block_s){
+	
+		if(map[enemies[p].y - 1] != ('t' || 'h')){
+		ip = -1;
+		}
+		
+	}
+	
+
+}else{
+ip = 0;
+jp = 0;
+}
+idddd.innerHTML = jp+' '+ip+'  '+xr+' '+yr+' c '+x_o+' '+y_o;
+}
+
+}
+//--------------
+
 
 
 //Загрузка картинок для мини-карты
@@ -464,6 +538,7 @@ drow_player();
 kid++;
 drow_mini_player();
 moveRect_player();
+action_ogrs();
 }
 //-------------------------------------
 
@@ -636,8 +711,19 @@ player.action = 'nothing';
 
 
 //Активация событий
-addEventListener("keydown", moveRect);
-addEventListener("keyup", nothing_player);
+if(window.addEventListener){
+	addEventListener("keydown", moveRect, false);
+	addEventListener("keyup", nothing_player, false);
+}else{ 
+	if (window.attachEvent){
+		addEventListener("keydown", moveRect);
+		addEventListener("keyup", nothing_player);
+	}else{
+			window.onkeydown = moveRect;
+			window.onkeyup = nothing_player;
+	}
+}
+
 
 //Основной цикл
 setInterval(drow_map, 40);
