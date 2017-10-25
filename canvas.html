@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/style.css" >
 </head>
 <body>
-
+<div id="idddd"> </div>
 <div id='all'>
 
 <div id="top_block">
@@ -63,25 +63,47 @@ function action_ogrs(){
 for(p = 1; p  < enemies.length; p++){
 
 
-xr = enemies[p].x*block_s - x_o + x0;
-yr = enemies[p].y*block_s - y_o + y0;
+var xr = enemies[p].x*block_s - x_o + x0;
+var yr = enemies[p].y*block_s - y_o + y0;
 
-r = sqrt(xr*xr + yr*yr);
+var r = Math.sqrt(xr*xr + yr*yr);
 
 
 //Проверяем, где, относительно огра, находится игрок
 if(r < 200){
-	ip = 0;
-	jp = 0;
+	let ip = 0;
+	let jp = 0;
 	
-	if(xr > 0){
+	if(xr > block_s/2){
 	
 		if(map[enemies[p].x - 1] != ('t' || 'h')){
 		jp = -1;
 		}
 		
-	}else{
-	jp = 1;
+	}
+	
+	if(xr < -block_s/2){
+	
+		if(map[enemies[p].x + 1] != ('t' || 'h')){
+		jp = +1;
+		}
+		
+	}
+	
+	if(yr > block_s/2){
+	
+		if(map[enemies[p].y - 1] != ('t' || 'h')){
+		ip = -1;
+		}
+		
+	}
+	
+	if(yr < -block_s/2){
+	
+		if(map[enemies[p].y - 1] != ('t' || 'h')){
+		ip = -1;
+		}
+		
 	}
 	
 	if(yr > 0){ 
